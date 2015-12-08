@@ -13,7 +13,7 @@
   
   Adding a command is very easy, and straight forward. Just add the following to request.php
   
-  $TCMD = new COMMAND_CENTRAL();
+  	$TCMD = new COMMAND_CENTRAL();
 	$TCMD->command_format = "I'm looking for %s"; // Command = text, %s = action parameter
 	$TCMD->command_response = "javascript_function_name({uber:request_param});"; // This should be the same as the function name and parameter set as what's in your demo.php javascript
 	
