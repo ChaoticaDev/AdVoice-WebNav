@@ -27,6 +27,8 @@
 					
 					if ( data.indexOf(");") > 0 ) {
 						setTimeout(data, 100);	
+					}else{
+						alert(data);	
 					}
 				});
 				console.log(result[0].transcript);
