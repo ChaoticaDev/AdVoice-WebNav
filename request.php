@@ -21,6 +21,7 @@
 		function parse_request ( $CMDS, $chain = 0 ){
 			$words = implode ( $this->base_string ) ;
 			
+			$cmd_fnd = false;
 			foreach ( $CMDS as $CMD ){
 				$cmd_req_words = explode ( " ", $CMD->command_format );	
 				
@@ -32,29 +33,27 @@
 					
 					$req .= $wd . " ";
 				}
+				//echo $this->base_string;
 				
-				if(strpos($this->base_string,$req) !== FALSE){
+				if(strpos($this->base_string,$req) !== FALSE || $this->base_string == $CMD->command_format){
 					$search_sub_len = strlen(substr($this->base_string, strpos($this->base_string,$req), strlen($req)));
 					//echo strpos($this->base_string,$req) ."-" . strlen($req) . "::" . substr($this->base_string, strpos($this->base_string,$req)+$search_sub_len, strlen($this->base_string)) . "** ";
 					//echo "Command found";	
 					
-					$CMD->command_response = str_replace("{uber:request_param}", "'".substr($this->base_string, strpos($this->base_string,$req)+$search_sub_len, strlen($this->base_string))."'", $CMD->command_response);
+					$CMD->command_response = str_replace("{uber:request_param}", '"'.substr($this->base_string, strpos($this->base_string,$req)+$search_sub_len, strlen($this->base_string)).'"', $CMD->command_response);
 					
+					$cmd_fnd=true;
 					echo $CMD->command_response;
 				} else{
-					echo "NO COMMAND FOUND";	
+						
 				}
 			}
+			if ( !$cmd_fnd) { echo "NO COMMAND FOUND: " . $this->base_string; }
 		}
+		
 	}
 	
-	$CMD;
-	$TCMD = new COMMAND_CENTRAL();
-	$TCMD->command_format = "search for %s";
-	$TCMD->command_response = "voice_search({uber:request_param});";
-	
-	$CMD[0] = $TCMD;
-	$request = new REQUEST_BUILDER();
+	require_once("commands.php");
 	
 	
 	
