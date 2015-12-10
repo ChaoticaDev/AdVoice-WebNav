@@ -28,7 +28,7 @@
 					if ( data.indexOf(");") > 0 ) {
 						setTimeout(data, 100);	
 					}else{
-						alert(data);	
+						//alert(data);	
 					}
 				});
 				console.log(result[0].transcript);
@@ -68,7 +68,7 @@
 	/*VOICE DRIVE REGISTRATION APP*/
 	
 	var reg_step = 0;
-	var reg_steps_headers = [[0,"Speak or type your first and last name"], [1,"Enter username"], [0,"Speak password phrase"]];
+	var reg_steps_headers = [[0,"Speak or type your first and last name"], [1,"Speak username"], [0,"Speak password phrase"]];
 	
 	function start_registration(){
 		init=true;
@@ -128,6 +128,7 @@
 </head>
 
 <body>
+<strong>TO USE SPEECH, YOU MUST BE USING CHROME WEB BROWSER</strong><br /><br />
 <!--<button onclick="listen()">Start recording! (Requires microphone and Desktop Chrome web browser)</button>-->
 <div class="keyword_detection">
 	Say a command!<br />
@@ -143,7 +144,6 @@
 	<input type="text" class="reg_flname" /><br />
 	<input type="text" class="reg_username" /><br />
     <input type="password" class="reg_password" /><br />
-    <button class="reg_nextbtn" onclick="next_step()">Next</button>
 </form><br /><br />
 <strong><a href="https://github.com/UberSnip/AdVoice-WebNav/blob/master/README.md">VIEW ON GITHUB</a></strong>
 </body>
