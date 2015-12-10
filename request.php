@@ -33,9 +33,6 @@
 					}else if ($wd == "%a"){
 						$optionals = true;
 						break;
-					}else if ($wd == "%s**"){ //WILDCARD
-						$wildcard = true;
-						break;
 					}
 					
 					$req .= $wd . " ";
@@ -65,7 +62,7 @@
 					}
 				}
 				
-				if( (strpos($this->base_string,$req) !== FALSE && $isOptional == FALSE ) || $this->base_string == $CMD->command_format || $isOptional == true || $wildcard == true ){
+				if((strpos($this->base_string,$req) !== FALSE && $isOptional != FALSE ) || $this->base_string == $CMD->command_format ){
 					
 					$search_sub_len = strlen(substr($this->base_string, strpos($this->base_string,$req), strlen($req)));
 					//echo strpos($this->base_string,$req) ."-" . strlen($req) . "::" . substr($this->base_string, strpos($this->base_string,$req)+$search_sub_len, strlen($this->base_string)) . "** ";
@@ -75,6 +72,7 @@
 					
 					$cmd_fnd=true;
 					echo $CMD->command_response;
+					break;
 				} else{
 						
 				}
