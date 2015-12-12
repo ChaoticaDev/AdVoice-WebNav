@@ -12,8 +12,6 @@
   
   Test it out: https://ubersnip.com/UberSnip_VoiceAPI/demo.php
   
-  Currently, the only command built in right now is "search for". By saying "search for 'candy'", the server will return a response : voice_search('candy'), and call the function. It's simple to use, just load the example page, and say "search for %s".
-  
   Adding a command is very easy, and straight forward. Just add the following to request.php
   
   	$TCMD = new COMMAND_CENTRAL();
