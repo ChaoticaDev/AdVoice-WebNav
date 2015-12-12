@@ -29,13 +29,18 @@
 			$wildcard = false;
 			$indexed = false;
 			$isDisqualified = false;
+			
+			$fCMD;
 			foreach ( $CMDS as $CMD ){
 				$cmd_req_words = explode ( " ", $CMD->command_format );	
 				
 				$req = "";
 				$disqualifies = false;
+				
+				$cmdindex = 0;
 				foreach ( $cmd_req_words as $wd ){
 					if ( strcmp($wd, "%s") === 0 ){
+						$indexed=false;
 						break;	
 					}else if (strcmp($wd, "%s^**") === 0){ //DISQUALIFIER
 						$disqualifies = true;
@@ -52,6 +57,8 @@
 					}
 					
 					$req .= $wd . " ";
+					
+					$cmdindex++;
 				}
 				$isOptional = false;
 				//echo $this->base_string;
@@ -120,18 +127,45 @@
 					
 				}
 				
-				if( (strpos($this->base_string,$req) !== FALSE && $isOptional == FALSE ) || $this->base_string == $CMD->command_format || $isOptional == true || $wildcard || $isIndexed ){
+				if ( $isIndexed == false ){
+				for($i = $cmdindex+1; $i < sizeof( $cmd_req_words ); $i++ ){
 					
+					$req .= $cmd_req_words[$i] . " ";
+				}
+			
+				
+				$nebase = explode(" ", $this->base_string);
+				$nestring = "";
+				
+				$nindex = 0;
+				foreach ( $nebase as $nbase ){
+					if ( $nindex != $cmdindex ){
+						$nestring .= $nindex != sizeof($nebase)-1 ? $nbase . " " : $nbase;
+					}
+					$nindex++;
+				}
+				}
+				
+				//echo "Req: " . $req . "<br />";
+				//echo "Nestring: '".$nestring."'"."<br />".strcmp( $req, $nestring)."<br />"."<br />";
+				//echo $isIndexed;
+				
+				if( ( $isOptional == true || $wildcard || $isIndexed ) || (strcmp( $req, $nestring) === 0 && $isIndexed == false && $nestring != '')){
+					
+					if ( $isIndexed == false ){
+						
+					}
 					//GET SUB_STRING LENGTH OF BASE_STRING UP UNTIL REQ_STRING FOUND
 					$search_sub_len = strlen(substr($this->base_string, strpos($this->base_string,$req), strlen($req)));
 					
 					$CMD->command_response = str_replace("{uber:request_param}", '"'.substr($this->base_string, strpos($this->base_string,$req)+$search_sub_len, strlen($this->base_string)).'"', $CMD->command_response);
 					
 						$cmd_fnd=true;
-					
-					//FINAL RESPONSE
+						$fCMD = $CMD;
+						
+						//echo $this->base_string;
 					break;
-					
+					//FINAL RESPONSE
 				} else{
 						
 				}
