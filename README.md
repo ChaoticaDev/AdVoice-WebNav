@@ -7,6 +7,9 @@
 
 # Example and Usage
 
+
+  Our most complete example can be found here: https://github.com/UberSnip/IOSpeech
+  
   Test it out: https://ubersnip.com/UberSnip_VoiceAPI/demo.php
   
   Currently, the only command built in right now is "search for". By saying "search for 'candy'", the server will return a response : voice_search('candy'), and call the function. It's simple to use, just load the example page, and say "search for %s".
