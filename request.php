@@ -152,13 +152,15 @@
 				
 				if( ( $isOptional == true || $wildcard || $isIndexed ) || (strcmp( $req, $nestring) === 0 && $isIndexed == false && $nestring != '')){
 					
-					if ( $isIndexed == false ){
-						
-					}
 					//GET SUB_STRING LENGTH OF BASE_STRING UP UNTIL REQ_STRING FOUND
 					$search_sub_len = strlen(substr($this->base_string, strpos($this->base_string,$req), strlen($req)));
 					
 					$CMD->command_response = str_replace("{uber:request_param}", '"'.substr($this->base_string, strpos($this->base_string,$req)+$search_sub_len, strlen($this->base_string)).'"', $CMD->command_response);
+					$CMD->func_data = str_replace("{uber:request_param}", $this->base_string, $CMD->func_data);
+					//var_dump($CMD);
+					//echo $CMD->func_data . "<br />";
+					call_user_func($CMD->user_func, $CMD->func_data);
+					
 					
 						$cmd_fnd=true;
 						$fCMD = $CMD;
